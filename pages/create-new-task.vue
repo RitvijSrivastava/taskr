@@ -45,6 +45,9 @@ export default {
         statusId: this.$route.query.id,
       }
       this.$store.dispatch('addTask', payload)
+      this.title = ''
+      this.description = ''
+      this.$router.push('/')
     },
   },
 }
