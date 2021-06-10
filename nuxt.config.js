@@ -26,6 +26,8 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+
+    '@nuxtjs/fontawesome',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -36,8 +38,11 @@ export default {
     '@nuxtjs/axios',
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  fontawesome: {
+    icons: {
+      solid: ['faArrowLeft', 'faTrashAlt'],
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

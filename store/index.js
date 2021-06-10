@@ -60,11 +60,26 @@ export const mutations = {
     })
     state.tasks = state.tasks.concat(newTask)
   },
+  editTask(state, { newTask, oldTask }) {
+    state.tasks = state.tasks.filter((task) => task.id !== oldTask.id)
+    state.tasks = state.tasks.concat(newTask)
+  },
+  deleteTask(state, { oldTask }) {
+    state.tasks = state.tasks.filter((task) => task.id !== oldTask.id)
+  },
 }
 
 export const getters = {
   getTaskDetailById: (state) => (id) => {
-    return state.tasks.find((task) => task.id === id)
+    const task = state.tasks.find((task) => task.id === id)
+    let status = null
+    if (task) {
+      status = state.status.find((s) => s.id === task.statusId)
+    }
+    return {
+      task,
+      status,
+    }
   },
 
   getTasksByStatusId: (state) => (id) => {
@@ -80,5 +95,11 @@ export const actions = {
   },
   setTasks({ commit }, payload) {
     commit('setTasks', payload)
+  },
+  editTask({ commit }, payload) {
+    commit('editTask', payload)
+  },
+  deleteTask({ commit }, payload) {
+    commit('deleteTask', payload)
   },
 }

@@ -4,7 +4,7 @@
       <fieldset>
         <legend>Create New Task</legend>
         <div>
-          <label class="label" for="name">Name</label>
+          <label class="label" for="title">Task Title</label>
           <input
             id="title"
             v-model="title"
@@ -23,7 +23,7 @@
           ></textarea>
         </div>
         <div>
-          <input type="submit" value="Send Form" />
+          <input type="submit" value="Submit" />
         </div>
       </fieldset>
     </form>
