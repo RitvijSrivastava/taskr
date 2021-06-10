@@ -3,7 +3,7 @@
     <span class="d-flex align-items-center">
       <h5 class="status-heading">{{ status.status }}</h5>
       <b-badge pill variant="secondary" class="mx-2">
-        {{ getTasks.numberOfTasks }}
+        {{ tasks.length }}
       </b-badge>
       <NuxtLink
         to="/create-new-task"
@@ -12,12 +12,14 @@
         <h3 class="text-secondary">+</h3>
       </NuxtLink>
     </span>
-    <TaskCard
-      v-for="task in getTasks.tasks"
-      :key="task.id"
-      :task="task"
-      class="my-3"
-    />
+    <draggable v-model="tasks" v-bind="draggableOptions">
+      <TaskCard
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        class="my-3 draggable-item"
+      />
+    </draggable>
     <NuxtLink to="/create-new-task" class="link-no-decorate text-secondary">
       + New
     </NuxtLink>
@@ -26,17 +28,38 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import draggable from 'vuedraggable'
 export default {
+  components: {
+    draggable,
+  },
   props: {
     status: {
       type: Object,
-      default: null,
+      required: true,
     },
   },
   computed: {
-    getTasks() {
-      const data = this.$store.getters.getTasksByStatusId(this.status.id)
-      return data
+    tasks: {
+      get() {
+        return this.$store.getters.getTasksByStatusId(this.status.id)
+      },
+      set(newTasks) {
+        const payload = {
+          tasks: newTasks,
+          statusId: this.status.id,
+        }
+        this.$store.dispatch('set', payload)
+      },
+    },
+    draggableOptions() {
+      return {
+        group: {
+          name: 'tasks',
+        },
+        draggable: '.draggable-item',
+        ghostClass: 'ghost',
+      }
     },
   },
   methods: {
@@ -56,5 +79,12 @@ export default {
 
 .add-new-button {
   cursor: pointer;
+}
+
+.draggable-item {
+  cursor: pointer;
+}
+.ghost {
+  opacity: 0.4;
 }
 </style>

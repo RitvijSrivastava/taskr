@@ -11,7 +11,7 @@
         <h5 class="sub-heading">Status:</h5>
       </b-col>
       <b-col>
-        <h6 class="mt-1 sub-content">{{ task.status }}</h6>
+        <h6 class="mt-1 sub-content">{{ task.statusId }}</h6>
       </b-col>
     </b-row>
     <b-row class="mb-2">

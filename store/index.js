@@ -6,49 +6,56 @@ export const state = () => ({
   ],
   tasks: [
     {
-      taskId: 1,
-      status: 'Not Started',
+      statusId: 1,
       id: 10,
       title: 'Learn Vue',
       description: 'Learn VUE from the website',
     },
     {
-      taskId: 1,
-      status: 'Not Started',
+      statusId: 1,
       id: 11,
       title: 'Learn Nuxt',
       description: 'Learn Nuxt from the website',
     },
     {
-      taskId: 2,
-      status: 'In Progress',
+      statusId: 2,
       id: 13,
       title: 'Be Stuck',
       description: '',
     },
     {
-      taskId: 3,
-      status: 'Completed',
+      statusId: 3,
       id: 14,
       title: 'First Task',
       description: 'Yay!',
     },
     {
-      taskId: 3,
-      status: 'Completed',
+      statusId: 3,
       id: 15,
       title: 'Procrastinate',
       description: 'Damn!',
     },
     {
-      taskId: 1,
-      status: 'Nott Started',
+      statusId: 1,
       id: 16,
       title: 'Do something',
       description: 'hells Nah!',
     },
   ],
 })
+
+export const mutations = {
+  set(state, { tasks, statusId }) {
+    state.tasks = state.tasks.filter((task) => task.statusId !== statusId)
+    const newTask = tasks.map((task) => {
+      return {
+        ...task,
+        statusId,
+      }
+    })
+    state.tasks = state.tasks.concat(newTask)
+  },
+}
 
 export const getters = {
   getTaskDetailById: (state) => (id) => {
@@ -60,18 +67,14 @@ export const getters = {
   },
 
   getTasksByStatusId: (state) => (id) => {
-    const tasks = state.tasks.filter(
-      (task) => parseInt(task.taskId) === parseInt(id)
+    return state.tasks.filter(
+      (task) => parseInt(task.statusId) === parseInt(id)
     )
-    return {
-      numberOfTasks: tasks.length,
-      tasks,
-    }
   },
 }
 
-export const mutations = {
-  changeTaskStatus(state, task) {
-    window.console.log(task)
+export const actions = {
+  set({ commit }, payload) {
+    commit('set', payload)
   },
 }
