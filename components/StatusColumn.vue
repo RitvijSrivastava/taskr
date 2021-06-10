@@ -6,7 +6,7 @@
         {{ tasks.length }}
       </b-badge>
       <NuxtLink
-        to="/create-new-task"
+        :to="`/create-new-task?id=${status.id}`"
         class="link-no-decorate ml-auto add-new-button"
       >
         <h3 class="text-secondary">+</h3>
@@ -20,7 +20,10 @@
         class="my-3 draggable-item"
       />
     </draggable>
-    <NuxtLink to="/create-new-task" class="link-no-decorate text-secondary">
+    <NuxtLink
+      :to="`/create-new-task?id=${status.id}`"
+      class="link-no-decorate text-secondary"
+    >
       + New
     </NuxtLink>
   </b-col>
@@ -49,7 +52,7 @@ export default {
           tasks: newTasks,
           statusId: this.status.id,
         }
-        this.$store.dispatch('set', payload)
+        this.$store.dispatch('setTasks', payload)
       },
     },
     draggableOptions() {

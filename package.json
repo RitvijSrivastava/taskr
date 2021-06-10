@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
+    "uuid": "^8.3.2",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {

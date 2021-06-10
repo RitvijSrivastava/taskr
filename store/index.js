@@ -1,43 +1,45 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export const state = () => ({
   status: [
-    { id: 1, status: 'Not Started' },
-    { id: 2, status: 'In Progress' },
-    { id: 3, status: 'Completed' },
+    { id: '1', status: 'Not Started' },
+    { id: '2', status: 'In Progress' },
+    { id: '3', status: 'Completed' },
   ],
   tasks: [
     {
-      statusId: 1,
-      id: 10,
+      statusId: '1',
+      id: '10',
       title: 'Learn Vue',
       description: 'Learn VUE from the website',
     },
     {
-      statusId: 1,
-      id: 11,
+      statusId: '1',
+      id: '11',
       title: 'Learn Nuxt',
       description: 'Learn Nuxt from the website',
     },
     {
-      statusId: 2,
-      id: 13,
+      statusId: '2',
+      id: '13',
       title: 'Be Stuck',
       description: '',
     },
     {
-      statusId: 3,
-      id: 14,
+      statusId: '3',
+      id: '14',
       title: 'First Task',
       description: 'Yay!',
     },
     {
-      statusId: 3,
-      id: 15,
+      statusId: '3',
+      id: '15',
       title: 'Procrastinate',
       description: 'Damn!',
     },
     {
-      statusId: 1,
-      id: 16,
+      statusId: '1',
+      id: '16',
       title: 'Do something',
       description: 'hells Nah!',
     },
@@ -45,7 +47,10 @@ export const state = () => ({
 })
 
 export const mutations = {
-  set(state, { tasks, statusId }) {
+  addTask(state, payload) {
+    state.tasks.push(payload)
+  },
+  setTasks(state, { tasks, statusId }) {
     state.tasks = state.tasks.filter((task) => task.statusId !== statusId)
     const newTask = tasks.map((task) => {
       return {
@@ -59,22 +64,21 @@ export const mutations = {
 
 export const getters = {
   getTaskDetailById: (state) => (id) => {
-    const task = state.tasks.find((task) => parseInt(task.id) === parseInt(id))
-
-    return {
-      task,
-    }
+    return state.tasks.find((task) => task.id === id)
   },
 
   getTasksByStatusId: (state) => (id) => {
-    return state.tasks.filter(
-      (task) => parseInt(task.statusId) === parseInt(id)
-    )
+    return state.tasks.filter((task) => task.statusId === id)
   },
 }
 
 export const actions = {
-  set({ commit }, payload) {
-    commit('set', payload)
+  addTask({ commit }, { newData, statusId }) {
+    const id = uuidv4()
+    const payload = { id, statusId, ...newData }
+    commit('addTask', payload)
+  },
+  setTasks({ commit }, payload) {
+    commit('setTasks', payload)
   },
 }
