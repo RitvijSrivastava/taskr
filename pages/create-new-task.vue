@@ -1,7 +1,5 @@
 <template>
-  <b-container class="my-5">
-    <StatusRow />
-  </b-container>
+  <div>{{ data }}</div>
 </template>
 
 <script>

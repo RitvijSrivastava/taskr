@@ -1,29 +1,46 @@
 <template>
   <b-col lg="4">
     <span class="d-flex align-items-center">
-      <h5 class="status-heading">{{ data.status }}</h5>
+      <h5 class="status-heading">{{ status.status }}</h5>
       <b-badge pill variant="secondary" class="mx-2">
-        {{ data.tasks.length }}
+        {{ getTasks.numberOfTasks }}
       </b-badge>
-      <h3 class="ml-auto text-secondary add-new-button">+</h3>
+      <NuxtLink
+        to="/create-new-task"
+        class="link-no-decorate ml-auto add-new-button"
+      >
+        <h3 class="text-secondary">+</h3>
+      </NuxtLink>
     </span>
-    <CardItem
-      v-for="card in data.tasks"
-      :key="card.id"
-      :data="card"
+    <TaskCard
+      v-for="task in getTasks.tasks"
+      :key="task.id"
+      :task="task"
       class="my-3"
     />
-    <nuxt-link to="/" class="link text-secondary"> + New </nuxt-link>
+    <NuxtLink to="/create-new-task" class="link-no-decorate text-secondary">
+      + New
+    </NuxtLink>
   </b-col>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   props: {
-    data: {
+    status: {
       type: Object,
       default: null,
     },
+  },
+  computed: {
+    getTasks() {
+      const data = this.$store.getters.getTasksByStatusId(this.status.id)
+      return data
+    },
+  },
+  methods: {
+    ...mapMutations(['changeTaskStatus']),
   },
 }
 </script>
@@ -33,7 +50,7 @@ export default {
   font-weight: 600;
 }
 
-.link:hover {
+.link-no-decorate:hover {
   text-decoration: none;
 }
 

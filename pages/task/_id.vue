@@ -1,7 +1,7 @@
 <template>
-  <b-container class="my-5">
-    <StatusRow />
-  </b-container>
+  <div>
+    <TaskCardDetail />
+  </div>
 </template>
 
 <script>

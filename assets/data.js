@@ -1,7 +1,7 @@
 export const fakeData = [
   {
     id: 1,
-    status: 'To do',
+    status: 'Not Started',
     tasks: [
       {
         id: 10,
@@ -28,7 +28,7 @@ export const fakeData = [
   },
   {
     id: 3,
-    status: 'Done',
+    status: 'Completed',
     tasks: [
       {
         id: 13,
