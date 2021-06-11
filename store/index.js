@@ -63,6 +63,13 @@ export const mutations = {
       localStorage.setItem('tasks', JSON.stringify(state.tasks))
     }
   },
+  addStatus(state, payload) {
+    state.status = state.status.concat(payload)
+    window.console.log(state.status)
+    if (process.browser) {
+      localStorage.setItem('status', JSON.stringify(state.status))
+    }
+  },
 }
 
 export const getters = {
@@ -104,5 +111,10 @@ export const actions = {
   },
   deleteTask({ commit }, payload) {
     commit('deleteTask', payload)
+  },
+  addStatus({ commit }, status) {
+    const id = uuidv4()
+    const payload = { id, status }
+    commit('addStatus', payload)
   },
 }

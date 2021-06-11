@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5">
+  <div class="mb-5 ml-4">
     <h1>Taskr: Project Tracker</h1>
   </div>
 </template>

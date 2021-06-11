@@ -1,8 +1,8 @@
 <template>
-  <b-container class="my-5">
+  <div class="my-5 root-container" fluid>
     <Heading />
     <StatusRow />
-  </b-container>
+  </div>
 </template>
 
 <script>

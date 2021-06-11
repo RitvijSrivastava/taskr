@@ -19,6 +19,7 @@
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
     "uuid": "^8.3.2",
+    "vue-horizontal": "^0.8.10",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
