@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   // Store both the new data and the old data
   data() {
@@ -77,6 +78,7 @@ export default {
 
   // 'titleValidation' is the validator for title length
   computed: {
+    ...mapState(['status']),
     titleValidation() {
       return this.title.length > 2
     },
@@ -113,7 +115,6 @@ export default {
             description: this.description,
           },
         }
-        window.console.log(payload)
         this.$store.dispatch('editTask', payload)
         this.$router.push('/')
       }

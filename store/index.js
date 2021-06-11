@@ -42,9 +42,7 @@ export const mutations = {
     let tasks = []
     if (process.browser) {
       tasks = JSON.parse(localStorage.getItem('tasks')) || []
-      window.console.log(tasks)
       tasks.push(payload)
-      window.console.log('B', tasks)
 
       localStorage.setItem('tasks', JSON.stringify(tasks))
       state.tasks = tasks
@@ -87,7 +85,6 @@ export const mutations = {
   // Handle addition of a new status
   addStatus(state, payload) {
     state.status = state.status.concat(payload)
-    window.console.log(state.status)
     if (process.browser) {
       localStorage.setItem('status', JSON.stringify(state.status))
     }

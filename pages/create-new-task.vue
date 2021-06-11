@@ -18,6 +18,7 @@
             type="text"
             name="title"
             :state="titleValidation"
+            min-length="3"
             required=""
           />
           <b-form-invalid-feedback id="input-live-feedback">
