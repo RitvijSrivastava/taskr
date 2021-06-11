@@ -1,7 +1,7 @@
  [build]
   publish = "dist/"
 
-  command = "npm run build"
+  command = "npm run generate"
 
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
