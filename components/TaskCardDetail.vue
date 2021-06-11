@@ -97,18 +97,20 @@ export default {
   },
   methods: {
     submit() {
-      const payload = {
-        oldTask: this.oldData,
-        newTask: {
-          id: this.oldData.id,
-          statusId: this.newStatus.id,
-          title: this.title,
-          description: this.description,
-        },
+      if (this.title.length > 2) {
+        const payload = {
+          oldTask: this.oldData,
+          newTask: {
+            id: this.oldData.id,
+            statusId: this.newStatus.id,
+            title: this.title,
+            description: this.description,
+          },
+        }
+        window.console.log(payload)
+        this.$store.dispatch('editTask', payload)
+        this.$router.push('/')
       }
-      window.console.log(payload)
-      this.$store.dispatch('editTask', payload)
-      this.$router.push('/')
     },
     reset() {
       this.newStatus = this.oldStatus

@@ -1,5 +1,5 @@
 <template>
-  <b-col lg="3" md="3">
+  <b-col lg="3" md="3" class="p-4 mb-3 border rounded-lg overflow-auto">
     <span class="d-flex align-items-center">
       <h5 class="status-heading">{{ status.status }}</h5>
       <b-badge pill variant="secondary" class="mx-2">
