@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
 export default {
   components: {
@@ -64,9 +63,6 @@ export default {
         ghostClass: 'ghost',
       }
     },
-  },
-  methods: {
-    ...mapMutations(['changeTaskStatus']),
   },
 }
 </script>

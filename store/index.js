@@ -6,49 +6,36 @@ export const state = () => ({
     { id: '2', status: 'In Progress' },
     { id: '3', status: 'Completed' },
   ],
-  tasks: [
-    {
-      statusId: '1',
-      id: '10',
-      title: 'Learn Vue',
-      description: 'Learn VUE from the website',
-    },
-    {
-      statusId: '1',
-      id: '11',
-      title: 'Learn Nuxt',
-      description: 'Learn Nuxt from the website',
-    },
-    {
-      statusId: '2',
-      id: '13',
-      title: 'Be Stuck',
-      description: '',
-    },
-    {
-      statusId: '3',
-      id: '14',
-      title: 'First Task',
-      description: 'Yay!',
-    },
-    {
-      statusId: '3',
-      id: '15',
-      title: 'Procrastinate',
-      description: 'Damn!',
-    },
-    {
-      statusId: '1',
-      id: '16',
-      title: 'Do something',
-      description: 'hells Nah!',
-    },
-  ],
+  tasks: [],
 })
 
 export const mutations = {
+  fetchData(state) {
+    let tasks = []
+    let status = []
+
+    if (process.browser) {
+      tasks = JSON.parse(localStorage.getItem('tasks')) || state.tasks
+      status = JSON.parse(localStorage.getItem('status')) || state.status
+
+      state.tasks = tasks
+      state.status = status
+
+      localStorage.setItem('tasks', JSON.stringify(tasks))
+      localStorage.setItem('status', JSON.stringify(status))
+    }
+  },
   addTask(state, payload) {
-    state.tasks.push(payload)
+    let tasks = []
+    if (process.browser) {
+      tasks = JSON.parse(localStorage.getItem('tasks')) || []
+      window.console.log(tasks)
+      tasks.push(payload)
+      window.console.log('B', tasks)
+
+      localStorage.setItem('tasks', JSON.stringify(tasks))
+      state.tasks = tasks
+    }
   },
   setTasks(state, { tasks, statusId }) {
     state.tasks = state.tasks.filter((task) => task.statusId !== statusId)
@@ -59,13 +46,22 @@ export const mutations = {
       }
     })
     state.tasks = state.tasks.concat(newTask)
+    if (process.browser) {
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+    }
   },
   editTask(state, { newTask, oldTask }) {
     state.tasks = state.tasks.filter((task) => task.id !== oldTask.id)
     state.tasks = state.tasks.concat(newTask)
+    if (process.browser) {
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+    }
   },
   deleteTask(state, { oldTask }) {
     state.tasks = state.tasks.filter((task) => task.id !== oldTask.id)
+    if (process.browser) {
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+    }
   },
 }
 
@@ -85,9 +81,16 @@ export const getters = {
   getTasksByStatusId: (state) => (id) => {
     return state.tasks.filter((task) => task.statusId === id)
   },
+
+  getAllStatus: (state) => {
+    return state.status
+  },
 }
 
 export const actions = {
+  fetchData({ commit }) {
+    commit('fetchData')
+  },
   addTask({ commit }, { newData, statusId }) {
     const id = uuidv4()
     const payload = { id, statusId, ...newData }

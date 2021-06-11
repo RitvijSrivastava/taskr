@@ -2,7 +2,14 @@
   <div>
     <form class="new-task-form" @submit.prevent="submit">
       <fieldset>
-        <legend>Create New Task</legend>
+        <legend>
+          <font-awesome-icon
+            class="icon-btn"
+            :icon="['fas', 'arrow-left']"
+            @click="goBack()"
+          />
+          Create New Task
+        </legend>
         <div>
           <label class="label" for="title">Task Title</label>
           <input
@@ -49,6 +56,9 @@ export default {
       this.description = ''
       this.$router.push('/')
     },
+    goBack() {
+      this.$router.push('/')
+    },
   },
 }
 </script>
@@ -63,6 +73,10 @@ export default {
   width: 500px;
   background-color: #fff;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.icon-btn {
+  cursor: pointer;
 }
 
 legend {
