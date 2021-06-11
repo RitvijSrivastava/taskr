@@ -17,8 +17,12 @@
             v-model="title"
             type="text"
             name="title"
+            :state="titleValidation"
             required=""
           />
+          <b-form-invalid-feedback id="input-live-feedback">
+            Enter at least 3 letters
+          </b-form-invalid-feedback>
         </div>
         <div>
           <label class="label" for="textarea">Task Description</label>
@@ -45,17 +49,27 @@ export default {
       description: '',
     }
   },
-  methods: {
-    submit() {
-      const payload = {
-        newData: { title: this.title, description: this.description },
-        statusId: this.$route.query.id,
-      }
-      this.$store.dispatch('addTask', payload)
-      this.title = ''
-      this.description = ''
-      this.$router.push('/')
+  computed: {
+    titleValidation() {
+      return this.title.length > 2
     },
+  },
+  methods: {
+    // Handle Submit. Only submit when the Title is atleast 3 chars long
+    submit() {
+      if (this.title.length > 2) {
+        const payload = {
+          newData: { title: this.title, description: this.description },
+          statusId: this.$route.query.id,
+        }
+        this.$store.dispatch('addTask', payload)
+        this.title = ''
+        this.description = ''
+        this.$router.push('/')
+      }
+    },
+
+    // Handle back button click
     goBack() {
       this.$router.push('/')
     },

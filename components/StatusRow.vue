@@ -1,11 +1,10 @@
 <template>
   <div class="pl-3 pr-3">
-    <!-- <b-container class="status-container" fluid> -->
+    <!-- Infinetely horizontally scrollable div -->
     <vue-horizontal responsive scroll :button="false" class="horizontal">
       <StatusColumn v-for="stat in getStatus" :key="stat.id" :status="stat" />
       <NewStatus />
     </vue-horizontal>
-    <!-- </b-container> -->
   </div>
 </template>
 

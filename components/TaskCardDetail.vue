@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
+  // Store both the new data and the old data
   data() {
     return {
       oldData: {},
@@ -74,12 +74,15 @@ export default {
       options: [],
     }
   },
+
+  // 'titleValidation' is the validator for title length
   computed: {
-    ...mapState(['status']),
     titleValidation() {
       return this.title.length > 2
     },
   },
+
+  // Refresh details every time this component is mounted.
   mounted() {
     const data = this.$store.getters.getTaskDetailById(this.$route.params.id)
 
@@ -93,9 +96,12 @@ export default {
     this.oldStatus = data.status
     this.title = data.task.title
     this.description = data.task.description
-    this.options = newOptions
+    this.options = newOptions // Create options for dropdown menu for changing status
   },
+
+  // Helper functions
   methods: {
+    // Handle submit. Only submit when the title length > 2
     submit() {
       if (this.title.length > 2) {
         const payload = {
@@ -112,6 +118,8 @@ export default {
         this.$router.push('/')
       }
     },
+
+    // Clear the changes and restore the original state of this component
     reset() {
       this.newStatus = this.oldStatus
       const newOptions = [
@@ -126,6 +134,8 @@ export default {
       this.description = this.oldData.description
       this.options = newOptions
     },
+
+    // Dispatch action to delete a task
     deleteTask() {
       if (confirm('Are you sure you want to delete this task ?')) {
         const payload = { oldTask: this.oldData }
@@ -133,6 +143,8 @@ export default {
         this.$router.push('/')
       }
     },
+
+    // handle back button click
     goBack() {
       this.$router.push('/')
     },
